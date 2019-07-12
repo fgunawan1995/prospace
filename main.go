@@ -4,24 +4,24 @@ import "log"
 
 func main() {
 
-	inputText := readInput()
+	inputText := ReadInput()
 
-	conversionRoman, conversionIntergalactic, questions := CategorizeInput(inputText)
+	intergalacticToRomanInputArray, metalValueInputArray, questions := CategorizeInput(inputText)
 
-	romanMap, err := buildRomanMap(conversionRoman)
+	intergalacticToRomanMap, err := BuildIntergalacticTointergalacticToRomanMap(intergalacticToRomanInputArray)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	objectMap, err := buildObjectMap(conversionIntergalactic, romanMap)
+	metalValueMap, err := BuildMetalValueMap(metalValueInputArray, intergalacticToRomanMap)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	result, err := buildResult(questions, romanMap, objectMap)
+	result, err := BuildResult(questions, intergalacticToRomanMap, metalValueMap)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	printResult(result)
+	PrintResult(result)
 }

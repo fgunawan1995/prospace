@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func printResult(result []string) {
+func PrintResult(result []string) {
 	if len(result) > 0 {
 		fmt.Println("Result : ")
 		for _, temp := range result {
@@ -20,7 +20,7 @@ func printResult(result []string) {
 	}
 }
 
-func readInput() []string {
+func ReadInput() []string {
 	reader := bufio.NewReader(os.Stdin)
 	inputText := make([]string, 0)
 	shouldStop := false
@@ -39,18 +39,18 @@ func readInput() []string {
 
 func CategorizeInput(inputText []string) ([]string, []string, []string) {
 	hasNumber := regexp.MustCompile("[0-9]+")
-	conversionRoman := make([]string, 0)
-	conversionIntergalactic := make([]string, 0)
+	intergalacticToRomanInputArray := make([]string, 0)
+	metalValueInputArray := make([]string, 0)
 	questions := make([]string, 0)
 	for _, text := range inputText {
 		count := hasNumber.FindAllString(text, -1)
 		if len(count) > 0 {
-			conversionIntergalactic = append(conversionIntergalactic, text)
+			metalValueInputArray = append(metalValueInputArray, text)
 		} else if strings.Count(text, " ") == 2 {
-			conversionRoman = append(conversionRoman, text)
+			intergalacticToRomanInputArray = append(intergalacticToRomanInputArray, text)
 		} else {
 			questions = append(questions, text)
 		}
 	}
-	return conversionRoman, conversionIntergalactic, questions
+	return intergalacticToRomanInputArray, metalValueInputArray, questions
 }

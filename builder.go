@@ -6,13 +6,13 @@ import (
 	"strings"
 )
 
-func buildRomanMap(conversionRoman []string) (map[string]string, error) {
-	romanMap := make(map[string]string)
-	for _, roman := range conversionRoman {
+func BuildIntergalacticTointergalacticToRomanMap(intergalacticToRomanInputArray []string) (map[string]string, error) {
+	intergalacticToRomanMap := make(map[string]string)
+	for _, roman := range intergalacticToRomanInputArray {
 		temp := strings.Split(roman, " ")
-		romanMap[temp[0]] = temp[2]
+		intergalacticToRomanMap[temp[0]] = temp[2]
 	}
-	for _, tmp := range romanMap {
+	for _, tmp := range intergalacticToRomanMap {
 		found := false
 		for romanChar := range RomanNumerals {
 			if tmp == romanChar {
@@ -20,42 +20,42 @@ func buildRomanMap(conversionRoman []string) (map[string]string, error) {
 			}
 		}
 		if !found {
-			return romanMap, fmt.Errorf("%s is not a roman character", tmp)
+			return intergalacticToRomanMap, fmt.Errorf("%s is not a roman character", tmp)
 		}
 	}
-	return romanMap, nil
+	return intergalacticToRomanMap, nil
 }
 
-func buildObjectMap(conversionIntergalactic []string, romanMap map[string]string) (map[string]int, error) {
-	objectMap := make(map[string]int)
-	for _, intergalactic := range conversionIntergalactic {
+func BuildMetalValueMap(metalValueInputArray []string, intergalacticToRomanMap map[string]string) (map[string]int, error) {
+	metalValueMap := make(map[string]int)
+	for _, intergalactic := range metalValueInputArray {
 		romanValues := ""
 		temp := strings.Split(intergalactic, " ")
 		for i, tmp := range temp {
-			if x, ok := romanMap[tmp]; ok {
+			if x, ok := intergalacticToRomanMap[tmp]; ok {
 				romanValues += x
 			}
 			if tmp == "is" {
 				rom, err := RomanToInt(romanValues)
 				if err != nil {
-					return objectMap, err
+					return metalValueMap, err
 				}
 				if len(temp) == i {
-					return objectMap, fmt.Errorf("invalid format")
+					return metalValueMap, fmt.Errorf("invalid format")
 				}
 				val, err := strconv.Atoi(temp[i+1])
 				if err != nil {
-					return objectMap, err
+					return metalValueMap, err
 				}
-				objectMap[temp[i-1]] = val / rom
+				metalValueMap[temp[i-1]] = val / rom
 				continue
 			}
 		}
 	}
-	return objectMap, nil
+	return metalValueMap, nil
 }
 
-func buildResult(questions []string, romanMap map[string]string, objectMap map[string]int) ([]string, error) {
+func BuildResult(questions []string, intergalacticToRomanMap map[string]string, metalValueMap map[string]int) ([]string, error) {
 	result := make([]string, 0)
 	for _, question := range questions {
 		var tempResult string
@@ -63,12 +63,12 @@ func buildResult(questions []string, romanMap map[string]string, objectMap map[s
 		temp := strings.Split(question, " ")
 		romanValues := ""
 		for i, tmp := range temp {
-			if x, ok := romanMap[tmp]; ok {
+			if x, ok := intergalacticToRomanMap[tmp]; ok {
 				tempResult += tmp + " "
 				romanValues += x
 				foundRomanValues = true
 			}
-			if x, ok := objectMap[tmp]; ok {
+			if x, ok := metalValueMap[tmp]; ok {
 				rom, err := RomanToInt(romanValues)
 				if err != nil {
 					return result, err

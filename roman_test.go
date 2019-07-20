@@ -27,7 +27,19 @@ func TestRomanToInt(t *testing.T) {
 			900,
 			false,
 		}, {
+			"XXXIX",
+			39,
+			false,
+		}, {
 			"aaa",
+			0,
+			true,
+		}, {
+			"IIII",
+			0,
+			true,
+		}, {
+			"LLLL",
 			0,
 			true,
 		},
